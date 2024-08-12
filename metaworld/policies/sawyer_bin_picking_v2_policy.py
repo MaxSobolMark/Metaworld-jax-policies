@@ -5,12 +5,14 @@ from typing import Any
 # import numpy as np
 import jax.numpy as np
 import numpy.typing as npt
+import flax
 
 from metaworld.policies.action import Action
 from metaworld.policies.policy import Policy, assert_fully_parsed, move
 
 
-class SawyerBinPickingV2Policy(Policy):
+# class SawyerBinPickingV2Policy(Policy):
+class SawyerBinPickingV2Policy(flax.struct.PyTreeNode):
     @staticmethod
     @assert_fully_parsed
     def _parse_obs(obs: npt.NDArray[np.float64]) -> dict[str, npt.NDArray[np.float64]]:
