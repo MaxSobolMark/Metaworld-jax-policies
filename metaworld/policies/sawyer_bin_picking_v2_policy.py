@@ -71,3 +71,16 @@ class SawyerBinPickingV2Policy(Policy):
             return -1.0
         else:
             return 0.6
+
+
+def functional_bin_picking_v2_get_action(obs):
+    o_d = SawyerBinPickingV2Policy._parse_obs(obs)
+
+    action = Action({"delta_pos": np.arange(3), "grab_effort": 3})
+
+    action["delta_pos"] = move(
+        o_d["hand_pos"], to_xyz=SawyerBinPickingV2Policy._desired_pos(o_d), p=25.0
+    )
+    action["grab_effort"] = SawyerBinPickingV2Policy._grab_effort(o_d)
+
+    return action.array
