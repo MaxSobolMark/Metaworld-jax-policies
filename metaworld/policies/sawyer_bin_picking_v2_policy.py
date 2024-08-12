@@ -35,6 +35,9 @@ class SawyerBinPickingV2Policy(flax.struct.PyTreeNode):
 
         return action.array
 
+    def sample_actions(self, obs, **kwargs):
+        return self.get_action(obs)
+
     @staticmethod
     def _desired_pos(o_d: dict[str, npt.NDArray[np.float64]]) -> npt.NDArray[Any]:
         pos_curr = o_d["hand_pos"]
