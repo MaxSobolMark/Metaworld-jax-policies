@@ -24,7 +24,7 @@ def assert_fully_parsed(
     def inner(obs) -> dict[str, Any]:
         obs_dict = func(obs)
         assert len(obs) == sum(
-            [len(i) if isinstance(i, np.ndarray) else 1 for i in obs_dict.values()]
+            [i.size if isinstance(i, np.ndarray) else 1 for i in obs_dict.values()]
         ), "Observation not fully parsed"
         return obs_dict
 
@@ -46,10 +46,10 @@ def move(
     """
     error = to_xyz - from_xyz
     response = p * error
-    if np.any(np.absolute(response) > 1.0):
-        warnings.warn(
-            "Constant(s) may be too high. Environments clip response to [-1, 1]"
-        )
+    # if np.any(np.absolute(response) > 1.0):
+    #     warnings.warn(
+    #         "Constant(s) may be too high. Environments clip response to [-1, 1]"
+    #     )
 
     return response
 

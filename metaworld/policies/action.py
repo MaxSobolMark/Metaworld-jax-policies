@@ -37,4 +37,5 @@ class Action:
 
     def __setitem__(self, key: str, value) -> None:
         assert key in self._structure, f"This action's structure does not contain {key}"
-        self.array[self._structure[key]] = value
+        # self.array[self._structure[key]] = value
+        self.array = self.array.at[self._structure[key]].set(value)
