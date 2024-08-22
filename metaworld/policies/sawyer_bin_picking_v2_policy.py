@@ -2,6 +2,8 @@ from __future__ import annotations
 
 from typing import Any
 
+from functools import partial
+
 # import numpy as np
 import jax.numpy as np
 import numpy.typing as npt
@@ -36,6 +38,7 @@ class SawyerBinPickingV2Policy(flax.struct.PyTreeNode):
 
         return action.array
 
+    @partial(jax.jit)
     def sample_actions(self, obs, **kwargs):
         assert len(obs.shape) == 3 and obs.shape[1] == 1
         obs = obs.squeeze(axis=1)
